@@ -1,0 +1,4 @@
+git+https://github.com/Rapptz/discord.py
+async-timeout==3.0.1
+disnake==2.5.1
+disnake-pagination==1.0
