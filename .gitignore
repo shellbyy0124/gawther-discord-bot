@@ -1,0 +1,7 @@
+config.json
+rules.json
+/__pycache__
+/cogs/__pycache__
+main.db
+createDb.py
+/__pycache__
