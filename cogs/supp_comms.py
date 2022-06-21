@@ -1,5 +1,4 @@
 import disnake 
-import asyncio
 
 from disnake.ext import commands
 from disnake.ext.commands import Cog
@@ -153,7 +152,6 @@ class Dropdown3(disnake.ui.Select):
         else:
             return await inter.response.edit_message("Something went wrong. Contact Support",view=None)
 
-"""MAIN COG"""
 class SupportFunctions(Cog):
     def __init__(self,bot):
         self.bot = bot
@@ -183,6 +181,9 @@ class SupportFunctions(Cog):
 
                 await inter.author.remove_roles(remove_role)
 
+                avail_cat = disnake.utils.get(inter.guild.categories,name="Available Support Channels")
+                await inter.channel.edit(category=avail_cat)
+
                 with open(f'./support_files/{inter.author.id}.txt','w') as file:
                     all_messages = await inter.channel.history(limit=None).flatten()
 
@@ -197,21 +198,7 @@ class SupportFunctions(Cog):
                         description = "Your Support File Is Ready For Downloading. Please Download Your File Now, Otherwise, On Sunday It Will Be Deleted"
                     ).set_thumbnail(url=inter.guild.icon)
 
-                    await inter.author.send(embed=embed,file=disnake.File(file, f'{inter.author.id}.txt'))
-
-                msg_count = await inter.channel.history(limit=None).flatten()
-
-                if len(msg_count):
-                    for message in msg_count:
-                        await message.delete()
-                        await asyncio.sleep(0.5)
-
-                    avail_cat = disnake.utils.get(inter.guild.categories,name="Available Support Channels")
-                    await inter.channel.edit(category=avail_cat)
-
-                    return await inter.channel.send(f"{inter.channel.name} has been cleared and is ready for use")
-                else:
-                    return await inter.channel.send("I could not close the channel. Please tell support to contact development")
+                    return await inter.author.send(embed=embed,file=disnake.File(file, f'{inter.author.id}.txt'))
             
 
 def setup(bot):
