@@ -4,3 +4,4 @@ rules.json
 /cogs/__pycache__
 main.db
 createDb.py
+/__pycache__
